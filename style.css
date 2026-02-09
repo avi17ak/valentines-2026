@@ -1,0 +1,372 @@
+/* --- Global Reset & Body --- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  color: #FFFFE3;
+  background-color: #b92e34;
+  background-image: linear-gradient(326deg, #b92e34 0%, #3d0c02 74%);
+  overflow-x: hidden;
+}
+
+/* --- Layout Structure --- */
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px; /* Adjust to move text closer/further from image */
+  padding: 20px;
+  width: 100%;
+}
+
+.content-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 50px; /* Space between Yes and No */
+}
+
+/* --- Typography --- */
+h1 {
+  font-size: 65px;
+  margin: 0;
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -2px;
+}
+/* --- Image Styling with Custom Corners --- */
+img {
+  box-sizing: border-box;
+  max-width: 900px;
+  height: auto;
+  display: block;
+  --b: 8px; /* border thickness*/
+  --s: 60px; /* size of the corner*/
+  --g: 14px; /* the gap*/
+  --c: #fdfbd4;
+
+  padding: calc(var(--b) + var(--g));
+  background-image:
+    conic-gradient(
+      from 90deg at top var(--b) left var(--b),
+      #0000 25%,
+      var(--c) 0
+    ),
+    conic-gradient(
+      from -90deg at bottom var(--b) right var(--b),
+      #0000 25%,
+      var(--c) 0
+    );
+  background-position:
+    var(--_p, 0%) var(--_p, 0%),
+    calc(100% - var(--_p, 0%)) calc(100% - var(--_p, 0%));
+  background-size: var(--s) var(--s);
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition:
+    background-position 0.3s var(--_i, 0.3s),
+    background-size 0.3s calc(0.3s - var(--_i, 0.3s));
+}
+
+img:hover {
+  background-size: calc(100% - var(--g)) calc(100% - var(--g));
+  --_p: calc(var(--g)/2);
+  --_i: 0s;
+}
+
+/* --- Heart Button (YES) --- */
+.button {
+  color: #3d0c02;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 90px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -2px;
+}
+
+#heart {
+  position: relative;
+  width: 100px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Elsie";
+  font-weight: 700;
+  font-size: 35px;
+  z-index: 5;
+  transition: all 0.2s ease-in-out;
+}
+
+#heart:before,
+#heart:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50px;
+  height: 80px;
+  background: #fdfbd4;
+  border-radius: 50px 50px 0 0;
+  transition:
+    background 0.5s ease,
+    transform 0.5s ease;
+  z-index: -1;
+}
+
+#heart:before {
+  left: 50px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+#heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.button:hover #heart:before,
+.button:hover #heart:after {
+  background: #ff4d4d;
+}
+
+.button.active #heart:before,
+.button.active #heart:after {
+  background: #bd2743 !important;
+}
+
+/* --- NO Button --- */
+/* --- No-to-Yes specific styles --- */
+.no-to-yes #heart {
+  background: #fdfbd4;
+  color: #3d0c02;
+  border-radius: 5px;
+  width: 80px; /* Fixed width for 'No' state */
+  height: 45px; /* Fixed height for 'No' state */
+}
+
+/* Hide heart shapes for the No button initially */
+.no-to-yes #heart:before,
+.no-to-yes #heart:after {
+  opacity: 0;
+}
+
+/* --- THE TRANSFORMATION --- */
+.no-to-yes:hover #heart {
+  background: transparent;
+  width: 100px;
+  height: 90px;
+  color: #3d0c02;
+}
+
+/* Show heart shapes on hover */
+.no-to-yes:hover #heart:before,
+.no-to-yes:hover #heart:after {
+  opacity: 1;
+  background: #ff4d4d;
+}
+
+/* --- Celebration Page Styles --- */
+
+/* Specific body class to avoid global conflicts */
+.celebration-body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* Re-using your background colors for consistency */
+  background-color: #b92e34;
+  background-image: linear-gradient(326deg, #b92e34 0%, #3d0c02 74%);
+  overflow: hidden;
+}
+
+.celebration-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px; /* Space between text and GIF */
+  animation: fadeIn 1.5s ease-in;
+}
+
+.celebration-title {
+  font-family: "Elsie";
+  font-size: 100px; /* Big and bold */
+  color: #FFFFE3;
+  margin: 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+#celebration-gif {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: 8px solid #FFFFE3;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  object-fit: contain;
+}
+
+/* Optional: Smooth entry animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* From Uiverse.io by alexmaracinaru */ 
+.cta {
+  position: relative;
+  margin: 50px;
+  padding: 12px 18px;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.cta:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-radius: 50px;
+  background: #3d0c02;
+  width: 45px;
+  height: 45px;
+  transition: all 0.3s ease;
+}
+
+.cta span {
+  position: relative;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fdfbd4;
+}
+
+.cta svg {
+  position: relative;
+  top: 0;
+  margin-left: 10px;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: #fdfbd4;
+  stroke-width: 2;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+.cta:hover:before {
+  width: 100%;
+  background: #3d0c02;
+}
+
+.cta:hover svg {
+  transform: translateX(0);
+  
+}
+
+.cta:active {
+  transform: scale(0.95);
+}
+
+/* --- Message Page Layout --- */
+.message-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.message-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 60px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px;
+}
+
+
+/* Rotations for natural look */
+.rotate-left { transform: rotate(-3deg); }
+.rotate-right { transform: rotate(4deg); }
+
+.polaroid:hover {
+  transform: scale(1.05) rotate(0deg);
+  z-index: 10;
+}
+
+/* --- Message Content --- */
+.message-container {
+  flex: 1;
+  color: #fdfbd4;
+  text-align: left;
+}
+
+.message-container h1 {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+
+.letter-content {
+  font-size: 35px;
+  line-height: 1.4;
+  font-family: "Elsie";
+}
+
+.signature {
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 45px;
+}
+
+.next-btn {
+  display: inline-block;
+  margin-top: 40px;
+  color: #fdfbd4;
+  text-decoration: none;
+  font-size: 24px;
+  border: 1px solid #fdfbd4;
+  padding: 10px 25px;
+  border-radius: 50px;
+  transition: all 0.3s;
+}
+
+.next-btn:hover {
+  background: #fdfbd4;
+  color: #b92e34;
+}
